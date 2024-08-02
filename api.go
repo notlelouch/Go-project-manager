@@ -22,7 +22,7 @@ func (s *APIServer) Serve() {
 
 	// registering services
 	tasksService := NewTasksService(s.store)
-	tasksService.RegisterRoutes(router)
+	tasksService.RegisterRoutes(subrouter)
 
 	log.Println("Starting the http server at ", s.addr)
 
