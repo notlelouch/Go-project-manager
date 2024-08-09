@@ -60,10 +60,11 @@ func (s *TasksService) handleGetTask(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	if id == "" {
-		WriteJSON(w, http.StatusBadRequest, ErrorResponse{Error: "id is required"})
-		return
-	}
+	// not imp, coz if there is no string after /tasks/"", this means it will automatically not be directed to this route.
+	// if id == "" {
+	// 	WriteJSON(w, http.StatusBadRequest, ErrorResponse{Error: "id is required"})
+	// 	return
+	// }
 
 	t, err := s.store.GetTask(id)
 	if err != nil {
