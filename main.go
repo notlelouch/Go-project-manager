@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-
 	cfg := mysql.Config{
 		User:                 Envs.DBUser,
 		Passwd:               Envs.DBPassword,
@@ -29,5 +28,4 @@ func main() {
 
 	api := NewAPIServer(":3000", store)
 	api.Serve()
-
 }

@@ -9,9 +9,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var errNameRequired = errors.New("name is required")
-var errProjectIDRequired = errors.New("project id is required")
-var errUserIDRequired = errors.New("user id is required")
+var (
+	errNameRequired      = errors.New("name is required")
+	errProjectIDRequired = errors.New("project id is required")
+	errUserIDRequired    = errors.New("user id is required")
+)
 
 type TasksService struct {
 	store Store
@@ -22,8 +24,8 @@ func NewTasksService(s Store) *TasksService {
 }
 
 func (s *TasksService) RegisterRoutes(r *mux.Router) {
-	r.HandleFunc("/tasks", s.handleCreateTask).Methods("POST")
-	r.HandleFunc("/tasks/{id}", s.handleGetTask).Methods("GET")
+	r.HandleFunc("/tasks", WithJWTAuth(s.handleCreateTask, s.store)).Methods("POST")
+	r.HandleFunc("/tasks/{id}", WithJWTAuth(s.handleGetTask, s.store)).Methods("GET")
 }
 
 func (s *TasksService) handleCreateTask(w http.ResponseWriter, r *http.Request) {
